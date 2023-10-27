@@ -29,14 +29,12 @@ router.register(r'Tareas',views.TareaViewSet, basename='Tarea')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/',include (router.urls)),
+    path('register/', views.register, name='register'),
+    path('login/', views.custom_login, name='login'),
+    path('logout/', views.LogoutView.as_view()),
+    # path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    # path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-
-    path('logout/', views.LogoutView.as_view())
 ]
-
-# http://localhost:8000/api/Tareas/ es para obtener todas las tareas
-# http://localhost:8000/api/Tareas/1/ es para obtener la tarea con id 1
 # http://localhost:8000/api/token/ es para obtener el token : de acceess y refresh 
 # http://localhost:8000/api/token/refresh/ es para obtener un nuevo token de acceso para extender su vida util
