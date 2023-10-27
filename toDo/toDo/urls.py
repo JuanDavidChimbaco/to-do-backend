@@ -24,8 +24,7 @@ from rest_framework_simplejwt.views import (
 from appToDo import views
 
 router = DefaultRouter()
-router.register(r'Usuarios', views.UsuarioViewSet)
-router.register(r'Tareas',views.TareaViewSet)
+router.register(r'Tareas',views.TareaViewSet, basename='Tarea')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -33,10 +32,11 @@ urlpatterns = [
     
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    
-    path('login/', views.LoginView.as_view()),
+
     path('logout/', views.LogoutView.as_view())
 ]
 
+# http://localhost:8000/api/Tareas/ es para obtener todas las tareas
+# http://localhost:8000/api/Tareas/1/ es para obtener la tarea con id 1
 # http://localhost:8000/api/token/ es para obtener el token : de acceess y refresh 
 # http://localhost:8000/api/token/refresh/ es para obtener un nuevo token de acceso para extender su vida util
