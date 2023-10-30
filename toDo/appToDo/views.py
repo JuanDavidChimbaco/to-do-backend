@@ -16,11 +16,20 @@ class TareaViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows Tareas to be viewed or edited.
     """
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     serializer_class = TareaSerializer
     def get_queryset(self):
-        tareas =  Tarea.objects.filter(usuario=self.request.user)
+        tareas =  Tarea.objects.filter(usuario=self.request.user).order_by('completed')
         return tareas
+
+class completedTarea(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    def post(self, request):
+        id = request.data.get('id')
+        tarea = Tarea.objects.get(id=id)
+        tarea.completed = True
+        tarea.save()
+        return Response(status=status.HTTP_200_OK)
 
 User = get_user_model()
 
@@ -44,7 +53,6 @@ def register(request):
     }
 
     return Response(data, status=status.HTTP_201_CREATED)    
-
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -72,13 +80,11 @@ def custom_login(request):
 
     return Response(data, status=status.HTTP_200_OK)
 
-
 class LogoutView(APIView):
     permission_classes = [permissions.IsAuthenticated]
     def post(self, request):
         logout(request)
         return Response(status=status.HTTP_200_OK)
-
 
 class veryToken(APIView):
     permission_classes = [permissions.AllowAny]

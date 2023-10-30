@@ -33,6 +33,7 @@ urlpatterns = [
     path('login/', views.custom_login, name='login'),
     path('logout/', views.LogoutView.as_view()),
     path('api/token/verify/', views.veryToken.as_view(), name='veryToken'),
+    path('completed/', views.completedTarea.as_view(), name='completedTarea'),
     # path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     # path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     
