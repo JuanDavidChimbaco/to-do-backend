@@ -81,3 +81,9 @@ class LogoutView(APIView):
     def post(self, request):
         logout(request)
         return Response(status=status.HTTP_200_OK)
+
+
+class veryToken(APIView):
+    permission_classes = [permissions.AllowAny]
+    def post(self, request):
+        return Response(status=status.HTTP_200_OK)
