@@ -27,7 +27,10 @@ class completedTarea(APIView):
     def post(self, request):
         id = request.data.get('id')
         tarea = Tarea.objects.get(id=id)
-        tarea.completed = True
+        if tarea.completed == False:
+            tarea.completed = True
+        else:
+            tarea.completed = False
         tarea.save()
         return Response(status=status.HTTP_200_OK)
 
